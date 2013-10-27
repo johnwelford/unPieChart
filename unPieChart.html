@@ -3,12 +3,14 @@
 <title>UnPieChart - Make sense of pie charts</title>
 <head>
 
+<script src="pico/pico/client.js"></script>
 <script>
 function submitNewPie() {
     document.getElementById('originalPie').src=document.forms["selectOriginalPie"]["pieUrl"].value
-
+    extractPieData(document.forms["selectOriginalPie"]["pieUrl"].value,function(response){document.getElementById('response').innerHTML = response;})
     return false;
 }
+pico.load("extractPieData");
 </script>
 
 </head>
@@ -61,25 +63,27 @@ Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/art
 <tbody>
 <tr>
 <td>Stephen C. Cox</td>
-<td>$300</td>
+<td>20%</td>
 </tr>
 <tr>
 <td>Josephin Tan</td>
-<td>$150</td>
+<td>20%</td>
 </tr>
 <tr>
 <td>Joyce Ming</td>
-<td>$200</td>
+<td>55%</td>
 </tr>
 <tr>
 <td>James A. Pentel</td>
-<td>$175</td>
+<td>5%</td>
 </tr>
 </tbody>
 </table>
 </td>
 </tr>
 </table>
+
+<p id="response"></p>
 
 </div>
 </div>
