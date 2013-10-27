@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>UnPieChart - Make sense of pie charts</title>
+<head>
+
+<script>
+function submitNewPie() {
+    document.getElementById('originalPie').src=document.forms["selectOriginalPie"]["pieUrl"].value
+
+    return false;
+}
+</script>
+
+</head>
+
+
+<body>
+
+<form name="selectOriginalPie" onsubmit="return submitNewPie();">
+  <select name="pieUrl" >
+    <option value="http://justinsomnia.org/images/feed-aggregators-pie-chart-2006-04-07.gif">Example 1</option>
+    <option value="http://foxhugh.files.wordpress.com/2012/02/pie1.gif">Example 2</option>
+    <option value="http://www.turkishculturalfoundation.org/images/Annual%20Report%202008/PIE%20CHART%20MAR16%20FINALTCA2.jpg">Example 3</option>
+    <option value="http://cdn2.hubspot.net/hub/233102/file-255947010-png/Blog_Images/PieCharts/stop_using_pie_charts_4.png">Example 4</option>
+  </select>
+  <!--<input type="url" name="pieUrl" autofocus>-->
+  <input type="submit" value="unPieChart">
+</form>
+
+
+<img src=""  id="originalPie" width=500px>
+
+</body>
