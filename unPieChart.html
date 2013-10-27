@@ -3,14 +3,14 @@
 <title>UnPieChart - Make sense of pie charts</title>
 <head>
 
-<script src="pico/pico/client.js"></script>
+<!--<script src="pico/pico/client.js"></script>-->
 <script>
 function submitNewPie() {
     document.getElementById('originalPie').src=document.forms["selectOriginalPie"]["pieUrl"].value
-    extractPieData(document.forms["selectOriginalPie"]["pieUrl"].value,function(response){document.getElementById('response').innerHTML = response;})
+  //  extractPieData.extractPieData(document.forms["selectOriginalPie"]["pieUrl"].value,function(response){document.getElementById('response').innerHTML = response;})
     return false;
 }
-pico.load("extractPieData");
+//pico.load("extractPieData");
 </script>
 
 </head>
@@ -36,13 +36,13 @@ UnPieChart - Make sense of pie charts
 Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf">aren't a great way to deliver information</a>. Submit the URL of a pie chart image below to convert one to a more useful set of data.
 
 <form name="selectOriginalPie" onsubmit="return submitNewPie();">
-  <select name="pieUrl" >
+  <!--  <select name="pieUrl" >
     <option value="http://justinsomnia.org/images/feed-aggregators-pie-chart-2006-04-07.gif">Example 1</option>
     <option value="http://foxhugh.files.wordpress.com/2012/02/pie1.gif">Example 2</option>
     <option value="http://www.turkishculturalfoundation.org/images/Annual%20Report%202008/PIE%20CHART%20MAR16%20FINALTCA2.jpg">Example 3</option>
     <option value="http://cdn2.hubspot.net/hub/233102/file-255947010-png/Blog_Images/PieCharts/stop_using_pie_charts_4.png">Example 4</option>
-  </select>
-  <!--<input type="url" name="pieUrl" autofocus>-->
+  </select>-->
+<input type="url" name="pieUrl" autofocus>
   <input type="submit" value="unPieChart">
 </form>
 <br><br>
@@ -83,7 +83,6 @@ Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/art
 </tr>
 </table>
 
-<p id="response"></p>
 
 </div>
 </div>
