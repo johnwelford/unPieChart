@@ -13,25 +13,12 @@ app = web.application(urls, globals())
 
 render = web.template.render('')
 
-class Index(object):
-    def GET(self):
-        form = web.input(pieUrl="Hello")
-        returnData = "%s" % (form.pieUrl)
-        return render.unPieChart(pieChartData = returnData)
-
+class Index(object):  
     def POST(self):
         form = web.input(pieUrl="Hello")
-        returnData = "%s" % (form.pieUrl)
-        return render.unPieChart(pieChartData = returnData)
-
-if __name__ == "__main__":
-    app.run()
-
-
-
 #def extractPieData(file = "http://www.turkishculturalfoundation.org/images/Annual%20Report%202008/PIE%20CHART%20MAR16%20FINALTCA2.jpg")
   #file = "testPie.jpg"
- # urllib.urlretrieve(file,"test")
+ 	urllib.urlretrieve(form.pieUrl,"test")
   #img = LoadImage("test")
   #NamedWindow("opencv")
   #ShowImage("opencv",img)
@@ -53,4 +40,12 @@ if __name__ == "__main__":
   #cv2.imshow('colorhist',h)
   #cv2.waitKey(0)
   
-#  return "Python Response!"
+        returnData = "%s" % (form.pieUrl)
+        return render.unPieChart(pieChartData = returnData)
+
+if __name__ == "__main__":
+    app.run()
+
+
+
+

@@ -50,7 +50,7 @@ Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/art
 <table style="margin:0 auto;">
 <tr>
 <td>
-<img src=""  id="originalPie" width=auto height=200px>
+<img src="$pieChartData" width=auto height=200px>
 </td>
 <td>
 <table id="hor-minimalist-a" summary="Pie chart extracted data">
@@ -84,7 +84,7 @@ Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/art
 </table>
 
 $if pieChartData:
-    Pie chart data: <em style="color: green; font-size: 2em;">$pieChartData</em>.
+    Pie chart data: $pieChartData
 $else:
     <em>Hello</em>, world!
 
