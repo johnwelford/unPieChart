@@ -1,0 +1,60 @@
+#hor-minimalist-a{border-collapse:collapse;text-align:left;margin:20px;}
+#hor-minimalist-a th{font-weight:normal;border-bottom:2px solid;padding:10px 8px;}
+#hor-minimalist-a td{padding:9px 8px 0;}
+#hor-minimalist-a tbody tr:hover td{font-weight:bold;color:#009;}
+
+@keyframes $dropZone-flash {
+  0% { opacity: 0 }
+}
+
+@keyframes $dropZone-wiggle {
+  ${(100 / 6) * 0}% { left: 0 }
+  ${(100 / 6) * 1}% { left: 1em }
+  ${(100 / 6) * 2}% { left: 0 }
+  ${(100 / 6) * 3}% { left: -1em }
+  ${(100 / 6) * 4}% { left: 0 }
+  ${(100 / 6) * 5}% { left: 1em }
+  ${(100 / 6) * 6}% { left: 0 }
+}
+
+#dropZone {
+  --color: hsl(150,0%,60%);
+  --bg:    hsla(150,0%,60%,50%);
+  width: 100%;
+  box-sizing: border-box;
+  height: 350px;
+  max-width: 100%;
+  padding: 50px;
+  border: 3px solid var(--color);
+  border-radius: 1vmin;
+  background: repeating-linear-gradient(-45deg, transparent 0 50px, var(--bg) 0 100px);
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#dropZone:focus { --color: hsl(224, 53%, 49%); --bg: hsla(224, 53%, 49%, 50%); }
+#dropZone.invalid { --color: hsl(0, 53%, 49%); --bg: hsla(0, 53%, 49%, 50%); }
+#dropZone:focus:after { content: "Paste away!"; }
+
+
+#dropZone:after {
+  content: "click or drop";
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 1.5em;
+  font-family: sans-serif;
+  color: white;
+  background: var(--color);
+  font-weight:bold;
+  text-transform: uppercase;
+  padding: .2em .5em;
+  border-radius: 20px;
+  position: relative;
+}
+#dropZone.invalid:after {
+  animation: 0.3s ease-out dropZone-wiggle;
+  content: attr(data-error-message);
+}
