@@ -60,6 +60,43 @@
   </td>
   </tr>
 </table>
+
+<table>
+  <tr>
+    <td>Greyscale:</td>
+    <td>Blur:</td>
+  </tr>
+  <tr>
+    <td><canvas id='greyscale' class='imageStep'></canvas></td>
+    <td><canvas id='blur' class='imageStep'></canvas></td>
+  </tr>
+  <tr>
+    <td>Edges:</td>
+    <td>Detected circle:</td>
+  </tr>
+  <tr>
+    <td><canvas id='edges' class='imageStep'></canvas></td>
+    <td><canvas id='output' class='imageStep'></canvas></td>
+  </tr>
+  <tr>
+    <td>Cropped:</td>
+    <td>Final segment:</td>
+  </tr>
+  <tr>
+    <td><canvas id='crop' class='imageStep'></canvas></td>
+    <td><canvas id='segment' class='imageStep'></canvas></td>
+  </tr>
+  <tr>
+    <td>Remove Pie:</td>
+    <td>Segment legend:</td>
+  </tr>
+  <tr>
+    <td><canvas id='pieless' class='imageStep'></canvas></td>
+    <td><canvas id='legend' class='imageStep'></canvas></td>
+  </tr>
+</table>
+
 <script src="scripts.js"></script>
+<script async src="opencv.js" onload="onOpenCvReady();"></script>
 </body>
 </html>
