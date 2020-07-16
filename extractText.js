@@ -29,17 +29,13 @@ function buildHtmlTable(arr) {
 function extractText(values, blobs) {
   return new Promise( function(resolve) {
     const worker = new Tesseract.TesseractWorker();
-    const progressBar = document.getElementById('progress');
     let textImg = document.createElement("img");
     textImg.src = document.getElementById('legend').toDataURL();
     worker
       .recognize(textImg)
-      .progress(progress => {
-        progressBar.querySelector("div").innerText = progress.status;
-        progressBar.querySelector("progress").value = progress.progress;
-      })
+      .progress(progress => { updateProgress(progress, 'findLegend'); })
       .then(result => {
-        progressBar.dispatchEvent(new CustomEvent("input"));
+        // progressBar.dispatchEvent(new CustomEvent("input"));
         values.map( (d, i) => {
           d.name = blobs[i].length>0 ? findLegendText(blobs[i][0].location, result.words) : '';
           return d;

@@ -1,20 +1,17 @@
-var src;
-var totalMask;
-var pieMask;
-
-function findPie() {
+function loadImage() {  // load source
   if (debug) console.log('Image loaded.');
-
-  // load source
   src = cv.imread('image');
-  src = cv.imread('image'); // fails on first read?
   if (debug) console.log('image width: ' + src.cols + '\n' +
               'image height: ' + src.rows + '\n' +
               'image size: ' + src.size().width + '*' + src.size().height + '\n' +
               'image depth: ' + src.depth() + '\n' +
               'image channels ' + src.channels() + '\n' +
               'image type: ' + src.type() + '\n');
+  return src;
+}
 
+function findPie(src) {
+  updateProgress({status: 'Finding pie chart...', progress: 0}, 'findPie');
   // setup greyscale image
   var grey = src.clone();
   cv.cvtColor(src, grey, cv.COLOR_BGR2GRAY, 0);
@@ -50,22 +47,35 @@ function findPie() {
       let radius = circlesMat.data32F[i * 3 + 2];
       circle.push({x: x, y: y, radius: radius});
   }
+  updateProgress({status: 'Found pie', progress: 1}, 'findPie');
 
-  // draw circles and build mask
-  const pieCentre = 0.2; // remove 20% of radius in the centre
-  var detect = src.clone(); // setup detection image - for display only
-  totalMask = cv.Mat.zeros(src.rows, src.cols, cv.CV_8U); // setup mask
-  circle.forEach( d => {
-      cv.circle(detect, {x: d.x, y: d.y}, d.radius, [255, 0, 0, 255], 1, 8, 0); // outline
-      cv.circle(detect, {x: d.x, y: d.y}, 1, [0, 255, 0, 255], -1, 8, 0); // centre dot
-      cv.circle(totalMask, {x: d.x, y: d.y}, d.radius, [255, 255, 255, 255], -1, 8, 0); // make mask
-      cv.circle(totalMask, {x: d.x, y: d.y}, d.radius*pieCentre, [0, 0, 0, 0], -1, 8, 0); // remove centre of mask
-  })
-  cv.imshow('output', detect);
   return circle;
 }
 
-function segmentPxls(circle){
+function buildMask(circle, src) {
+  // build mask
+  const pieCentre = 0.2; // remove 20% of radius in the centre
+  var totalMask = cv.Mat.zeros(src.rows, src.cols, cv.CV_8U); // setup mask
+  circle.forEach( d => {
+      cv.circle(totalMask, {x: d.x, y: d.y}, d.radius, [255, 255, 255, 255], -1, 8, 0); // make mask
+      cv.circle(totalMask, {x: d.x, y: d.y}, d.radius*pieCentre, [0, 0, 0, 0], -1, 8, 0); // remove centre of mask
+  })
+  return totalMask;
+}
+
+function drawDetect(circle, src) {
+  // draw detected circles
+  var detect = src.clone(); // setup detection image - for display only
+  circle.forEach( d => {
+      cv.circle(detect, {x: d.x, y: d.y}, d.radius, [255, 0, 0, 255], 1, 8, 0); // outline
+      cv.circle(detect, {x: d.x, y: d.y}, 1, [0, 255, 0, 255], -1, 8, 0); // centre dot
+  })
+  cv.imshow('output', detect);
+}
+
+function segmentPxls(circle, totalMask, src) {
+
+  updateProgress({status: 'Segmenting pie...', progress: 0}, 'segmentPie');
   // crop image - for display only
   var crop = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup cropped image
   src.copyTo(crop, totalMask);
@@ -96,21 +106,23 @@ function segmentPxls(circle){
         ]);
       }
       segPxls.push(segPix); // store segment pixels
+      updateProgress({status: 'Segmenting pie...', progress: seg/360}, 'segmentPie');
     }
     return segPxls;
 }
 
-function removePie(circle){
+function removePie(circle, src){
   // remove pie from image
-  pieMask = new cv.Mat(src.rows, src.cols, cv.CV_8U,[255,255,255,255]); // setup mask
+  var pieMask = new cv.Mat(src.rows, src.cols, cv.CV_8U,[255,255,255,255]); // setup mask
   const inflatePie = src.cols*0.01; // pixels to increase pie size by to ensure it is fully removed
   circle.forEach( d => {
       cv.circle(pieMask, {x: d.x, y: d.y}, d.radius+inflatePie, [0,0,0,0], -1, 8, 0); // make mask
   })
   cv.imshow('pieless', pieMask);
+  return pieMask;
 }
 
-function findLegend(values, circle){
+function findLegend(values, circle, pieMask, src){
   // find legend blobs
   params = {
     minArea: 25, // 5x5 pixels min

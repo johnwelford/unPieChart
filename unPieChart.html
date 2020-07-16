@@ -26,10 +26,25 @@
 <div id='dropZoneView'><div id='dropZone' tabindex=-1 data-error-message='That’s not an image'></div></div>
 
 <img id='image' width=auto height=200px>
-<section id='progress'>
-  <div></div>
-  <progress />
-</section>
+
+<table id="progressTable">
+  <tr id='loadLibraries'>
+    <td class='task'>Loading libraries...</td>
+    <td><progress value='0'/></td>
+  </tr>
+  <tr id='findPie'>
+    <td class='task'>Find pie</td>
+    <td><progress value='0'/></td>
+  </tr>
+  <tr id='segmentPie'>
+    <td class='task'>Find segments</td>
+    <td><progress value='0'/></td>
+  </tr>
+  <tr id='findLegend'>
+    <td class='task'>Find legend</td>
+    <td><progress value='0'/></td>
+  </tr>
+</table>
 
 <table id="resultTable"></table>
 
