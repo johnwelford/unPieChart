@@ -20,31 +20,36 @@
 <div><a href="https://codahale.com/about/">Coda Hale</a></div>
 
 <div>
-  Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf">aren't a great way to deliver information</a>. Paste a pie chart image below to convert it to a more useful set of data.
+  Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf">aren't a great way to deliver information</a>.
+  Drag and paste a pie chart image below to convert it to a more useful set of data.
 </div>
 
-<div id='dropZoneView'><div id='dropZone' tabindex=-1 data-error-message='That’s not an image'></div></div>
+  <div id='dropZoneView' class='fill'>
+    <img id='image' src='image-5-1024x504.png'>
+    <div id='dropZone' tabindex=-1 data-error-message='That’s not an image'>
+    </div>
+  </div>
 
-<img id='image' width=auto height=200px>
-
-<table id="progressTable">
-  <tr id='loadLibraries'>
-    <td class='task'>Loading libraries...</td>
-    <td><progress value='0'/></td>
-  </tr>
-  <tr id='findPie'>
-    <td class='task'>Find pie</td>
-    <td><progress value='0'/></td>
-  </tr>
-  <tr id='segmentPie'>
-    <td class='task'>Find segments</td>
-    <td><progress value='0'/></td>
-  </tr>
-  <tr id='findLegend'>
-    <td class='task'>Find legend</td>
-    <td><progress value='0'/></td>
-  </tr>
-</table>
+<div>
+  <table id="progressTable">
+    <tr id='loadLibraries'>
+      <td class='task'>Loading libraries...</td>
+      <td><progress value='0'/></td>
+    </tr>
+    <tr id='findPie'>
+      <td class='task'>Find pie</td>
+      <td><progress value='0'/></td>
+    </tr>
+    <tr id='segmentPie'>
+      <td class='task'>Find segments</td>
+      <td><progress value='0'/></td>
+    </tr>
+    <tr id='findLegend'>
+      <td class='task'>Find legend</td>
+      <td><progress value='0'/></td>
+    </tr>
+  </table>
+</div>
 
 <table id="resultTable"></table>
 

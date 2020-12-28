@@ -39,7 +39,7 @@ function getImage(items, area) {
       if (debug) console.log('circle', circle);
 
       // segment pie
-      var segPxls = segmentPxls(circle, totalMask, src);
+      var segPxls = await segmentPxls(circle, totalMask, src);
       if (debug) console.log('segPxls', segPxls);
       var values = findSegments(segPxls);
       if (debug) console.log('values', values);
@@ -69,7 +69,12 @@ function onOpenCvReady() {
 }
 
 function updateProgress(progress, progressSection) {
-  const progressBar = document.getElementById(progressSection);
-  progressBar.querySelector("td").innerText = progress.status;
-  progressBar.querySelector("progress").value = progress.progress;
+  return Promise.resolve()
+  .then(function() {
+    setTimeout(function() {
+      const progressBar = document.getElementById(progressSection);
+      progressBar.querySelector("td").innerText = progress.status;
+      progressBar.querySelector("progress").value = progress.progress;
+    }, 0);
+  });    
 }
