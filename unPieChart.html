@@ -24,11 +24,16 @@
   Drag and paste a pie chart image below to convert it to a more useful set of data.
 </div>
 
-  <div id='dropZoneView' class='fill'>
-    <img id='image' src='image-5-1024x504.png'>
-    <div id='dropZone' tabindex=-1 data-error-message='That’s not an image'>
-    </div>
+<div id='dropZoneView' class='fill'>
+  <img id='image'>
+  <div id='dropZone' tabindex=-1 data-error-message='That’s not an image'>
   </div>
+</div>
+
+<div id='chart'>
+</div>
+<button id="start">Stacked Bar</button>
+<button id="reset">Pie</button>
 
 <div>
   <table id="progressTable">
@@ -88,12 +93,13 @@
   </tr>
 </table>
 
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src='https://unpkg.com/tesseract.js@v2.0.0-alpha.11/dist/tesseract.min.js'></script>
+<script async src="opencv.js" onload="onOpenCvReady();"></script>
 <script src="process.js"></script>
 <script src="imageProcess.js"></script>
 <script src="segmentPie.js"></script>
 <script src="extractText.js"></script>
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src='https://unpkg.com/tesseract.js@v2.0.0-alpha.11/dist/tesseract.min.js'></script>
-<script async src="opencv.js" onload="onOpenCvReady();"></script>
+<script src="newChart.js"></script>
 </body>
 </html>
