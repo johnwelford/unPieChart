@@ -11,27 +11,24 @@
 <body>
 <h1>UnPieChart - Undoing crappy pie charts</h1>
 
-<div><quote>
-  "Piecharts are the information visualization equivalent of a roofing hammer to the frontal lobe.
-  They have no place in the world of grownups, and occupy the same semiotic space as short pants, a runny nose, and chocolate smeared on one’s face.
-  They are as professional as a pair of assless chaps.
-  Anyone who suggests their use should be instinctively slapped."
-</quote></div>
-<div><a href="https://codahale.com/about/">Coda Hale</a></div>
-
-<div>
-  Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf">aren't a great way to deliver information</a>.
-  Drag and paste a pie chart image below to convert it to a more useful set of data.
-</div>
-
 <div id='dropZoneView' class='fill'>
-  <img id='image'>
   <div id='dropZone' tabindex=-1 data-error-message='That’s not an image'>
+    <div id='intro'>
+      <p>Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf">aren't a great way to deliver information</a>.</p>
+      <div><blockquote>
+        <p>Piecharts are the information visualization equivalent of a roofing hammer to the frontal lobe.
+        They have no place in the world of grownups, and occupy the same semiotic space as short pants, a runny nose, and chocolate smeared on one’s face.
+        They are as professional as a pair of assless chaps.
+        Anyone who suggests their use should be instinctively slapped.</p>
+      </blockquote></div>
+      <div class='author'><a href="https://codahale.com/about/">Coda Hale</a></div>
+      <p>Drag or paste a pie chart image here to convert it to a more useful set of data.</p>
+    </div>
+    <img id='image'>
+    <div id='chart'></div>
   </div>
 </div>
 
-<div id='chart'>
-</div>
 <button id="start">Stacked Bar</button>
 <button id="reset">Pie</button>
 

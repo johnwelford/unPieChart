@@ -32,24 +32,37 @@ function getImage(items, area) {
       await new Promise((resolve) => { image.onload = resolve; });
       let src = loadImage();
 
-      // find pie chart
-      let circle = findPie(src);
-      var totalMask = buildMask(circle, src);
-      drawDetect(circle, src);
-      if (debug) console.log('circle', circle);
+      // // find pie chart
+      // let circle = findPie(src);
+      // var totalMask = buildMask(circle, src);
+      // drawDetect(circle, src);
+      // if (debug) console.log('circle', circle);
+      //
+      // // segment pie
+      // var segPxls = await segmentPxls(circle, totalMask, src);
+      // if (debug) console.log('segPxls', segPxls);
+      // var values = findSegments(segPxls);
+      // if (debug) console.log('values', values);
+      // var pieMask = removePie(circle, src);
+      //
+      // // find legend
+      // var blobs = findLegend(values, circle, pieMask, src);
+      // if (debug) console.log('blobs', blobs);
+      // values = await extractText(values, blobs);
+      // if (debug) console.log('values with legend', values);
+      //
+      // // temporary save of values
+      // localStorage.setItem('values', JSON.stringify(values));
+      // localStorage.setItem('circle', JSON.stringify(circle));
 
-      // segment pie
-      var segPxls = await segmentPxls(circle, totalMask, src);
-      if (debug) console.log('segPxls', segPxls);
-      var values = findSegments(segPxls);
-      if (debug) console.log('values', values);
-      var pieMask = removePie(circle, src);
+      // teporary load of values
+      var values = JSON.parse(localStorage.getItem('values'));
+      var circle = JSON.parse(localStorage.getItem('circle'));
 
-      // find legend
-      var blobs = findLegend(values, circle, pieMask, src);
-      if (debug) console.log('blobs', blobs);
-      values = await extractText(values, blobs);
-      if (debug) console.log('values with legend', values);
+      // draw pie
+      drawPie(values, src, circle);
+
+      // draw table
       buildHtmlTable(values);
     }
     fr.readAsDataURL(value);
@@ -76,5 +89,5 @@ function updateProgress(progress, progressSection) {
       progressBar.querySelector("td").innerText = progress.status;
       progressBar.querySelector("progress").value = progress.progress;
     }, 0);
-  });    
+  });
 }

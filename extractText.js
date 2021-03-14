@@ -13,7 +13,7 @@ function buildHtmlTable(arr) {
     var td = document.createElement('td');
     var div = document.createElement('div');
     div.classList.add('segmentKey');
-    div.style.backgroundColor = d3.hsl(row.colour);
+    div.style.backgroundColor = d3.hsl(makeColour(row.colour));
     td.appendChild(div);
     tr.appendChild(td);
     var td = document.createElement('td');
