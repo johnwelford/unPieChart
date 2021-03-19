@@ -6,6 +6,7 @@ const param1 = 10; // a number forwarded to the Canny edge detector (applied to 
 const segStep = 3; // degrees
 const thresh = [5, 80, 18]; // bound either side of hls colour to search (0-255 values for each)
 const view = document.getElementById('dropZoneView');
+const intro = document.getElementById('intro');
 
 function dropZone() { // adapted from https://observablehq.com/@j-f1/drop-zone
   const area = document.getElementById('dropZone');
@@ -13,6 +14,11 @@ function dropZone() { // adapted from https://observablehq.com/@j-f1/drop-zone
   area.ondrop = e => { e.preventDefault(); getImage(e.dataTransfer.items, area); };
   area.onpaste = e => getImage(e.clipboardData.items, area);
 }
+
+document.getElementById("processingDisplay").addEventListener("change", (event) => { // determine what processing image is shown
+  Array.from(document.querySelectorAll('.pieImage.show')).forEach((el) => el.classList.remove('show')); // hide everything
+  document.getElementById(event.target.value).classList.add("show"); // show the new thing
+});
 
 function getImage(items, area) {
   var image = document.getElementById('image');
@@ -31,36 +37,40 @@ function getImage(items, area) {
       image.src = fr.result;
       await new Promise((resolve) => { image.onload = resolve; });
       let src = loadImage();
+      intro.style.visibility = "hidden";
 
-      // // find pie chart
-      // let circle = findPie(src);
-      // var totalMask = buildMask(circle, src);
-      // drawDetect(circle, src);
-      // if (debug) console.log('circle', circle);
-      //
-      // // segment pie
-      // var segPxls = await segmentPxls(circle, totalMask, src);
-      // if (debug) console.log('segPxls', segPxls);
-      // var values = findSegments(segPxls);
-      // if (debug) console.log('values', values);
-      // var pieMask = removePie(circle, src);
-      //
-      // // find legend
-      // var blobs = findLegend(values, circle, pieMask, src);
-      // if (debug) console.log('blobs', blobs);
-      // values = await extractText(values, blobs);
-      // if (debug) console.log('values with legend', values);
-      //
-      // // temporary save of values
-      // localStorage.setItem('values', JSON.stringify(values));
-      // localStorage.setItem('circle', JSON.stringify(circle));
+      // find pie chart
+      let circle = findPie(src);
+      var totalMask = buildMask(circle, src);
+      drawDetect(circle, src);
+      if (debug) console.log('circle', circle);
 
-      // teporary load of values
-      var values = JSON.parse(localStorage.getItem('values'));
-      var circle = JSON.parse(localStorage.getItem('circle'));
+      // segment pie
+      var segPxls = await segmentPxls(circle, totalMask, src);
+      if (debug) console.log('segPxls', segPxls);
+      var values = findSegments(segPxls);
+      if (debug) console.log('values', values);
+      var pieMask = removePie(circle, src);
+
+      // find legend
+      var blobs = findLegend(values, circle, pieMask, src);
+      if (debug) console.log('blobs', blobs);
+      values = await extractText(values, blobs);
+      if (debug) console.log('values with legend', values);
+
+      // temporary save of values
+      localStorage.setItem('values', JSON.stringify(values));
+      localStorage.setItem('circle', JSON.stringify(circle));
+
+      // // teporary load of values
+      // var values = JSON.parse(localStorage.getItem('values'));
+      // var circle = JSON.parse(localStorage.getItem('circle'));
 
       // draw pie
       drawPie(values, src, circle);
+      document.getElementById('processingDisplay').value = 'chart';
+      document.getElementById('processingDisplay').dispatchEvent(new Event("change"));
+      // document.getElementById('chart').classList.add("show"); // show the new thing
 
       // draw table
       buildHtmlTable(values);
@@ -73,7 +83,6 @@ function getImage(items, area) {
     setTimeout(() => area.classList.remove('invalid'), 2000);
   }
 }
-
 
 function onOpenCvReady() {
   updateProgress({status: 'Libraries loaded', progress: 1}, 'loadLibraries')

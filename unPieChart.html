@@ -9,7 +9,8 @@
 </head>
 
 <body>
-<h1>UnPieChart - Undoing crappy pie charts</h1>
+<h1>UnPieChart</h1>
+<h2>Undoing crappy pie charts</h2>
 
 <div id='dropZoneView' class='fill'>
   <div id='dropZone' tabindex=-1 data-error-message='That’s not an image'>
@@ -24,8 +25,16 @@
       <div class='author'><a href="https://codahale.com/about/">Coda Hale</a></div>
       <p>Drag or paste a pie chart image here to convert it to a more useful set of data.</p>
     </div>
-    <img id='image'>
-    <div id='chart'></div>
+    <img id='image' class='pieImage'>
+    <canvas id='greyscale' class='pieImage'></canvas>
+    <canvas id='blur' class='pieImage'></canvas>
+    <canvas id='edges' class='pieImage'></canvas>
+    <canvas id='output' class='pieImage'></canvas>
+    <canvas id='crop' class='pieImage'></canvas>
+    <canvas id='segment' class='pieImage'></canvas>
+    <canvas id='pieless' class='pieImage'></canvas>
+    <canvas id='legend' class='pieImage'></canvas>
+    <div id='chart' class='pieImage'></div>
   </div>
 </div>
 
@@ -55,40 +64,19 @@
 
 <table id="resultTable"></table>
 
-<table>
-  <tr>
-    <td>Greyscale:</td>
-    <td>Blur:</td>
-  </tr>
-  <tr>
-    <td><canvas id='greyscale' class='imageStep'></canvas></td>
-    <td><canvas id='blur' class='imageStep'></canvas></td>
-  </tr>
-  <tr>
-    <td>Edges:</td>
-    <td>Detected circle:</td>
-  </tr>
-  <tr>
-    <td><canvas id='edges' class='imageStep'></canvas></td>
-    <td><canvas id='output' class='imageStep'></canvas></td>
-  </tr>
-  <tr>
-    <td>Cropped:</td>
-    <td>Final segment:</td>
-  </tr>
-  <tr>
-    <td><canvas id='crop' class='imageStep'></canvas></td>
-    <td><canvas id='segment' class='imageStep'></canvas></td>
-  </tr>
-  <tr>
-    <td>Remove Pie:</td>
-    <td>Segment legend:</td>
-  </tr>
-  <tr>
-    <td><canvas id='pieless' class='imageStep'></canvas></td>
-    <td><canvas id='legend' class='imageStep'></canvas></td>
-  </tr>
-</table>
+<label for="processingDisplay">Show processing step:</label>
+<select name="processingDisplay" id="processingDisplay">
+  <option value="image">Original</option>
+  <option value="greyscale">Greyscale</option>
+  <option value="blur">Blur</option>
+  <option value="edges">Edges</option>
+  <option value="output">Detected circle</option>
+  <option value="crop">Cropped</option>
+  <option value="segment">Final segment</option>
+  <option value="pieless">Remove Pie</option>
+  <option value="legend">Segment legend</option>
+  <option value="chart">Reproduce</option>
+</select>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src='https://unpkg.com/tesseract.js@v2.0.0-alpha.11/dist/tesseract.min.js'></script>

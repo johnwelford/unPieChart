@@ -42,8 +42,8 @@ function drawPie(pie, original, circle) {
 
   svg = d3.select(chart)
     .append("svg")
-    .attr("width", original.cols)
-    .attr("height", original.rows);
+      .attr("viewBox", '0 0 '+original.cols+' '+original.rows)
+      .attr("preserveAspectRatio", 'xMinYMin');
 
   const g = svg.append('g')
   	.attr('transform', 'translate('+circle[0].x+','+circle[0].y+')');

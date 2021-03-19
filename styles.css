@@ -1,5 +1,6 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swapfamily=Lato:ital,wght@1,300');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@100&display=swap');
 
 @keyframes $dropZone-flash {
   0% { opacity: 0 }
@@ -15,6 +16,16 @@
   ${(100 / 6) * 6}% { left: 0 }
 }
 
+@-moz-keyframes show { 0% { opacity: 0; visibility: hidden; } 100% { opacity: 1; visibility: visible; }}
+@-webkit-keyframes show { 0% { opacity: 0; visibility: hidden; } 100% { opacity: 1; visibility: visible; }}
+@-ms-keyframes show { 0% { opacity: 0; visibility: hidden; } 100% { opacity: 1; visibility: visible; }}
+@-keyframes show { 0% { opacity: 0; visibility: hidden; } 100% { opacity: 1; visibility: visible; }}
+
+@-moz-keyframes hide { 0% { opacity: 1; visibility: visible; }  100% { opacity: 0; visibility: hidden; }}
+@-webkit-keyframes hide { 0% { opacity: 1; visibility: visible; }  100% { opacity: 0; visibility: hidden; }}
+@-ms-keyframes hide { 0% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; }}
+@-keyframes hide { 0% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden;  }}
+
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 100%;
@@ -23,7 +34,17 @@ body {
 h1 {
   text-align: center;
   font-family: 'Lato', sans-serif;
+  margin-block-end: 0em;
   font-weight: normal;
+}
+
+h2 {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  margin-block-start: 0em;
+  font-style: italic;
+  font-size: 1.1em;
+  font-weight: 100;
 }
 
 #intro {
@@ -31,6 +52,39 @@ h1 {
   width: 500px;
   max-width: 90%;
   line-height: 1.3;
+}
+
+#chart {
+  display: block;
+  width: 100%;
+  position: fixed;
+}
+
+.pieImage {
+  -moz-animation-name: hide;
+  -webkit-animation-name: hide;
+  -ms-animation-name: hide;
+  animation-name: hide;
+  -moz-animation-duration: 2.5s;
+  -webkit-animation-duration: 2.5s;
+  -ms-animation-duration: 2.5s;
+  animation-duration: 2.5s;
+  -moz-animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  -ms-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+.pieImage.show {
+  -moz-animation-name: show;
+  -webkit-animation-name: show;
+  -ms-animation-name: show;
+  animation-name: show;
 }
 
 blockquote {
@@ -73,7 +127,6 @@ blockquote {
   --bg: hsla(150,0%,60%,50%);
   width: 100%;
   height: 100%;
-  background: repeating-linear-gradient(-45deg, transparent 0 50px, var(--bg) 0 100px);
   outline: none;
   float: left;
   position: absolute;
@@ -84,7 +137,7 @@ blockquote {
   display: inline-flex;
 }
 #dropZone:focus {
-  --color: hsl(224, 53%, 49%);
+  --color: #0009;
   --bg: hsla(224, 53%, 49%, 50%);
 }
 #dropZone.invalid {
@@ -101,10 +154,8 @@ blockquote {
   vertical-align: middle;
   text-align: center;
   font-size: 1.5em;
-  font-family: sans-serif;
   color: white;
   background: var(--color);
-  font-weight:bold;
   padding: .2em .5em;
   border-radius: 20px;
   position: absolute;
