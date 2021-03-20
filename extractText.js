@@ -26,22 +26,22 @@ function buildHtmlTable(arr) {
   });
 }
 
-function extractText(values, blobs) {
-  return new Promise( function(resolve) {
-    const worker = new Tesseract.TesseractWorker();
-    let textImg = document.createElement("img");
-    textImg.src = document.getElementById('legend').toDataURL();
-    worker
-      .recognize(textImg)
-      .progress(progress => { updateProgress(progress, 'findLegend'); })
-      .then(result => {
-        // progressBar.dispatchEvent(new CustomEvent("input"));
-        values.map( (d, i) => {
-          d.name = blobs[i].length>0 ? findLegendText(blobs[i][0].location, result.words) : '';
-          return d;
-        });
-        resolve(values);
-      });
+async function extractText(values, blobs) {
+  const worker = Tesseract.createWorker()
+  let textImg = document.createElement("img");
+  textImg.src = document.getElementById('legend').toDataURL();
+  var result = await (async () => {
+    await worker.load();
+    await worker.loadLanguage('eng');
+    await worker.initialize('eng');
+    const { data } = await worker.recognize(textImg);
+    return data;
+    // await worker.terminate();
+  })();
+  console.log(result);
+  return await values.map( (d, i) => {
+    d.name = blobs[i].length>0 ? findLegendText(blobs[i][0].location, result.words) : '';
+    return d;
   });
 }
 

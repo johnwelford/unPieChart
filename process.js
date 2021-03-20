@@ -88,26 +88,23 @@ function getImage(items, area) {
       await breakable(() => { blobs = findLegend(values, circle, pieMask, src); });
       setSelect('processingDisplay','legend','Segment legend');
       if (debug) console.log('blobs', blobs);
-      var values2;
-      values2 = extractText(values, blobs);
-      values2.then(async (val) => {
-        if (debug) console.log('values with legend', val);
+      var values = await extractText(values, blobs);
+      if (debug) console.log('values with legend', values);
 
-        // // temporary save of values
-        // localStorage.setItem('vals', JSON.stringify(values));
-        // localStorage.setItem('circle', JSON.stringify(circle));
+      // temporary save of values
+      localStorage.setItem('values', JSON.stringify(values));
+      localStorage.setItem('circle', JSON.stringify(circle));
 
-        // // teporary load of values
-        // var values = JSON.parse(localStorage.getItem('values'));
-        // var circle = JSON.parse(localStorage.getItem('circle'));
+      // // teporary load of values
+      // var values = JSON.parse(localStorage.getItem('values'));
+      // var circle = JSON.parse(localStorage.getItem('circle'));
 
-        // draw pie
-        await breakable(() => { drawPie(val, src, circle); });
-        setSelect('processingDisplay','chart','Reproduce');
+      // draw pie
+      await breakable(() => { drawPie(values, src, circle); });
+      setSelect('processingDisplay','chart','Reproduce');
 
-        // draw table
-        await breakable(() => { buildHtmlTable(val); });
-      });
+      // draw table
+      await breakable(() => { buildHtmlTable(values); });
     }
     fr.readAsDataURL(value);
     setTimeout(() => view.dispatchEvent(new CustomEvent('input')), 100);
