@@ -8,6 +8,23 @@ const thresh = [5, 80, 18]; // bound either side of hls colour to search (0-255 
 const view = document.getElementById('dropZoneView');
 const intro = document.getElementById('intro');
 
+function breakable(calculate){ // allow a breakable calculation using requestAnimationFrame
+  return new Promise(resolve => {
+    requestAnimationFrame( () => {
+      requestAnimationFrame(() => {
+        calculate();
+        resolve();
+      });
+    });
+  });
+};
+
+function setSelect(selectId, selection, text) { // add an option to a selection, select it, trigger the change event
+  var select = document.getElementById(selectId);
+  select.add(new Option(text, selection, false, true));
+  select.dispatchEvent(new Event("change"));
+};
+
 function dropZone() { // adapted from https://observablehq.com/@j-f1/drop-zone
   const area = document.getElementById('dropZone');
   area.ondragover = e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; };
@@ -36,44 +53,61 @@ function getImage(items, area) {
       // load image
       image.src = fr.result;
       await new Promise((resolve) => { image.onload = resolve; });
-      let src = loadImage();
       intro.style.visibility = "hidden";
-
+      let src;
+      await breakable(() => { src = loadImage(); });
+      setSelect('processingDisplay','image','Original');
       // find pie chart
-      let circle = findPie(src);
-      var totalMask = buildMask(circle, src);
-      drawDetect(circle, src);
+      let circle;
+      await breakable(() => { circle = findPie(src); });
+      setSelect('processingDisplay','greyscale','Greyscale');
+      setSelect('processingDisplay','blur','Blur');
+      // find pie chart
+      var totalMask;
+      await breakable(() => { totalMask = buildMask(circle, src); });
+      setSelect('processingDisplay','edges','Edges');
+      await breakable(() => { drawDetect(circle, src); });
+      setSelect('processingDisplay','output','Detected circle');
       if (debug) console.log('circle', circle);
 
       // segment pie
-      var segPxls = await segmentPxls(circle, totalMask, src);
+      let segPxls;
+      await breakable(() => { segPxls = segmentPxls(circle, totalMask, src); });
+      setSelect('processingDisplay','crop','Cropped');
       if (debug) console.log('segPxls', segPxls);
-      var values = findSegments(segPxls);
+      var values;
+      await breakable(() => { values = findSegments(segPxls); });
+      setSelect('processingDisplay','segment','Final segment');
       if (debug) console.log('values', values);
-      var pieMask = removePie(circle, src);
+      var pieMask;
+      await breakable(() => { pieMask = removePie(circle, src); });
+      setSelect('processingDisplay','pieless','Remove Pie');
 
       // find legend
-      var blobs = findLegend(values, circle, pieMask, src);
+      var blobs;
+      await breakable(() => { blobs = findLegend(values, circle, pieMask, src); });
+      setSelect('processingDisplay','legend','Segment legend');
       if (debug) console.log('blobs', blobs);
-      values = await extractText(values, blobs);
-      if (debug) console.log('values with legend', values);
+      var values2;
+      values2 = extractText(values, blobs);
+      values2.then(async (val) => {
+        if (debug) console.log('values with legend', val);
 
-      // temporary save of values
-      localStorage.setItem('values', JSON.stringify(values));
-      localStorage.setItem('circle', JSON.stringify(circle));
+        // // temporary save of values
+        // localStorage.setItem('vals', JSON.stringify(values));
+        // localStorage.setItem('circle', JSON.stringify(circle));
 
-      // // teporary load of values
-      // var values = JSON.parse(localStorage.getItem('values'));
-      // var circle = JSON.parse(localStorage.getItem('circle'));
+        // // teporary load of values
+        // var values = JSON.parse(localStorage.getItem('values'));
+        // var circle = JSON.parse(localStorage.getItem('circle'));
 
-      // draw pie
-      drawPie(values, src, circle);
-      document.getElementById('processingDisplay').value = 'chart';
-      document.getElementById('processingDisplay').dispatchEvent(new Event("change"));
-      // document.getElementById('chart').classList.add("show"); // show the new thing
+        // draw pie
+        await breakable(() => { drawPie(val, src, circle); });
+        setSelect('processingDisplay','chart','Reproduce');
 
-      // draw table
-      buildHtmlTable(values);
+        // draw table
+        await breakable(() => { buildHtmlTable(val); });
+      });
     }
     fr.readAsDataURL(value);
     setTimeout(() => view.dispatchEvent(new CustomEvent('input')), 100);

@@ -74,49 +74,47 @@ function drawDetect(circle, src) {
 }
 
 function segmentPxls(circle, totalMask, src) {
-  return new Promise( function(resolve) {
-    updateProgress({status: 'Segmenting pie...', progress: 0}, 'segmentPie');
-    // crop image - for display only
-    var crop = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup cropped image
-    src.copyTo(crop, totalMask);
-    cv.imshow('crop', totalMask);
+  updateProgress({status: 'Segmenting pie...', progress: 0}, 'segmentPie');
+  // crop image - for display only
+  var crop = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup cropped image
+  src.copyTo(crop, totalMask);
+  cv.imshow('crop', totalMask);
 
-    // Segment
-    var segMask = cv.Mat.zeros(src.rows, src.cols, cv.CV_8U); // mask for increasing segment from start point
-    var segCrop = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup segment cropped image
-    var segCropCombine = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup segment cropped image
-    var segPxls = []; // store details for each segment
-    for (let seg = segStep; seg <= 360; seg = seg + segStep) {
-    // let seg = segStep;
-    // (function getSeg() {
-    //   console.log(seg)
-      circle.forEach( d => {
-          cv.ellipse(segMask, {x: d.x, y: d.y}, {width: d.radius, height: d.radius}, 0, 0, seg, [255, 255, 255, 255], -1, 8, 0); // draw segment mask
-      } )
-      cv.bitwise_and(totalMask, segMask, segCropCombine); // combine mask with segment mask
-      cv.subtract(totalMask, segMask, totalMask); // apply mask to segment mask
-      segCrop = cv.Mat.zeros(src.rows, src.cols, cv.CV_8U); // clear segment cropped image
-      src.copyTo(segCrop, segCropCombine); // apply segment mask to source
-      cv.imshow('segment', segCrop);
+  // Segment
+  var segMask = cv.Mat.zeros(src.rows, src.cols, cv.CV_8U); // mask for increasing segment from start point
+  var segCrop = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup segment cropped image
+  var segCropCombine = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup segment cropped image
+  var segPxls = []; // store details for each segment
+  for (let seg = segStep; seg <= 360; seg = seg + segStep) {
+  // let seg = segStep;
+  // (function getSeg() {
+  //   console.log(seg)
+    circle.forEach( d => {
+        cv.ellipse(segMask, {x: d.x, y: d.y}, {width: d.radius, height: d.radius}, 0, 0, seg, [255, 255, 255, 255], -1, 8, 0); // draw segment mask
+    } )
+    cv.bitwise_and(totalMask, segMask, segCropCombine); // combine mask with segment mask
+    cv.subtract(totalMask, segMask, totalMask); // apply mask to segment mask
+    segCrop = cv.Mat.zeros(src.rows, src.cols, cv.CV_8U); // clear segment cropped image
+    src.copyTo(segCrop, segCropCombine); // apply segment mask to source
+    cv.imshow('segment', segCrop);
 
-      // get segment pixels
-      var segPix = [];
-      for (let i = 0; i < src.data.length/4; i++) {
-        if (segCropCombine.data[i]>0) segPix.push([
-          src.data[i*4],
-          src.data[i*4 + 1],
-          src.data[i*4 + 2],
-        ]);
-      }
-      segPxls.push(segPix); // store segment pixels
-      updateProgress({status: 'Segmenting pie...', progress: seg/360}, 'segmentPie');
-      // seg = seg + segStep;
-      // if (seg <= 360) {
-      //   setTimeout(getSeg, 0);
-      }
-    // })();
-    resolve(segPxls);
-  });
+    // get segment pixels
+    var segPix = [];
+    for (let i = 0; i < src.data.length/4; i++) {
+      if (segCropCombine.data[i]>0) segPix.push([
+        src.data[i*4],
+        src.data[i*4 + 1],
+        src.data[i*4 + 2],
+      ]);
+    }
+    segPxls.push(segPix); // store segment pixels
+    updateProgress({status: 'Segmenting pie...', progress: seg/360}, 'segmentPie');
+    // seg = seg + segStep;
+    // if (seg <= 360) {
+    //   setTimeout(getSeg, 0);
+    }
+  // })();
+  return segPxls;
 }
 
 function removePie(circle, src){

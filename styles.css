@@ -65,10 +65,10 @@ h2 {
   -webkit-animation-name: hide;
   -ms-animation-name: hide;
   animation-name: hide;
-  -moz-animation-duration: 2.5s;
-  -webkit-animation-duration: 2.5s;
-  -ms-animation-duration: 2.5s;
-  animation-duration: 2.5s;
+  -moz-animation-duration: 0s;
+  -webkit-animation-duration: 0s;
+  -ms-animation-duration: 0s;
+  animation-duration: 0s;
   -moz-animation-timing-function: linear;
   -webkit-animation-timing-function: linear;
   -ms-animation-timing-function: linear;
