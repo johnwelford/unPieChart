@@ -40,6 +40,7 @@ function drawPie(pie, original, circle) {
     }
   }
 
+  chart.innerHTML = ''; // remove any previous svg 
   svg = d3.select(chart)
     .append("svg")
       .attr("viewBox", '0 0 '+original.cols+' '+original.rows)

@@ -13,7 +13,7 @@
 <h2>Undoing crappy pie charts</h2>
 
 <div id='dropZoneView' class='fill'>
-  <div id='dropZone' tabindex=-1 data-error-message='That’s not an image'>
+  <div id='dropZone' tabindex=-1>
     <div id='intro'>
       <p>Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf">aren't a great way to deliver information</a>.</p>
       <div><blockquote>
@@ -35,49 +35,35 @@
     <canvas id='pieless' class='pieImage'></canvas>
     <canvas id='legend' class='pieImage'></canvas>
     <div id='chart' class='pieImage'></div>
+    <div id ='notification'><span class='notifyText'>test</span></div>
   </div>
 </div>
 
 <button id="start">Stacked Bar</button>
 <button id="reset">Pie</button>
 
-<div>
-  <table id="progressTable">
-    <tr id='loadLibraries'>
-      <td class='task'>Loading libraries...</td>
-      <td><progress value='0'/></td>
-    </tr>
-    <tr id='findPie'>
-      <td class='task'>Find pie</td>
-      <td><progress value='0'/></td>
-    </tr>
-    <tr id='segmentPie'>
-      <td class='task'>Find segments</td>
-      <td><progress value='0'/></td>
-    </tr>
-    <tr id='findLegend'>
-      <td class='task'>Find legend</td>
-      <td><progress value='0'/></td>
-    </tr>
-  </table>
-</div>
-
 <table id="resultTable"></table>
 
 <label for="processingDisplay">Show processing step:</label>
-<select name="processingDisplay" id="processingDisplay">
-  <!-- <option value="image">Original</option>
-  <option value="greyscale">Greyscale</option>
-  <option value="blur">Blur</option>
-  <option value="edges">Edges</option>
-  <option value="output">Detected circle</option>
-  <option value="crop">Cropped</option>
-  <option value="segment">Final segment</option>
-  <option value="pieless">Remove Pie</option>
-  <option value="legend">Segment legend</option>
-  <option value="chart">Reproduce</option> -->
-</select>
-
+<select name="processingDisplay" id="processingDisplay"></select>
+<br><br>
+To do:
+<ul>
+  <li>Order table</li>
+  <li>Fix legend extraction</li>
+  <li>Fix small images</li>
+  <li>Fix portrait images</li>
+  <li>Fix unroll of pie</li>
+  <li>Transition unrolled pie off image</li>
+  <li>Directly label unrolled pie</li>
+  <li>Add warning for large images</li>
+  <li>Host on github.io</li>
+  <li>Make work on mobile</li>
+  <li>Add folded FAQs</li>
+  <li>Vertical stacked bar</li>
+  <li>Unstacked bar</li>
+  <li>Investigate 3D charts</li>
+</ul>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
 <script async src="opencv.js" onload="onOpenCvReady();"></script>

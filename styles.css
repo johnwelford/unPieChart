@@ -16,6 +16,8 @@
   ${(100 / 6) * 6}% { left: 0 }
 }
 
+@keyframes spin { 100% {transform: rotate(360deg); } }
+
 @-moz-keyframes show { 0% { opacity: 0; visibility: hidden; } 100% { opacity: 1; visibility: visible; }}
 @-webkit-keyframes show { 0% { opacity: 0; visibility: hidden; } 100% { opacity: 1; visibility: visible; }}
 @-ms-keyframes show { 0% { opacity: 0; visibility: hidden; } 100% { opacity: 1; visibility: visible; }}
@@ -124,7 +126,6 @@ blockquote {
   max-height: 100%;
 }
 #dropZone {
-  --bg: hsla(150,0%,60%,50%);
   width: 100%;
   height: 100%;
   outline: none;
@@ -135,8 +136,6 @@ blockquote {
   align-items: center;
   justify-content: center;
   display: inline-flex;
-}
-#dropZone:focus {
   --color: #0009;
   --bg: hsla(224, 53%, 49%, 50%);
 }
@@ -144,11 +143,10 @@ blockquote {
   --color: hsl(0, 53%, 49%);
   --bg: hsla(0, 53%, 49%, 50%);
 }
-#dropZone:focus:after {
+#dropZone:focus #notification {
   content: "Paste a pie chart image";
 }
-#dropZone:after {
-  /* content: "Click and paste, or drop,\a a pie chart image"; */
+#dropZone #notification {
   white-space: pre-wrap;
   display: inline-block;
   vertical-align: middle;
@@ -159,7 +157,17 @@ blockquote {
   padding: .2em .5em;
   border-radius: 20px;
   position: absolute;
+  visibility: hidden;
 }
+
+#dropZone #notification .spinner {
+  position: absolute;
+  animation: spin 3s linear infinite;
+  border-radius: 20px;
+  border: 14px solid;
+  border-color: transparent transparent transparent #ffffff;
+}
+
 #dropZone.invalid:after {
   animation: 0.3s ease-out dropZone-wiggle;
   content: attr(data-error-message);
@@ -174,7 +182,8 @@ blockquote {
 #resultTable {
   border-collapse: collapse;
   text-align: left;
-  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 #resultTable th {
   font-weight: normal;
@@ -186,7 +195,6 @@ blockquote {
 }
 #resultTable tr:hover td {
   font-weight: bold;
-  color: #009;
 }
 .segmentKey {
   width: 20px;

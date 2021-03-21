@@ -11,7 +11,6 @@ function loadImage() {  // load source
 }
 
 function findPie(src) {
-  updateProgress({status: 'Finding pie chart...', progress: 0}, 'findPie');
   // setup greyscale image
   var grey = src.clone();
   cv.cvtColor(src, grey, cv.COLOR_BGR2GRAY, 0);
@@ -47,7 +46,6 @@ function findPie(src) {
       let radius = circlesMat.data32F[i * 3 + 2];
       circle.push({x: x, y: y, radius: radius});
   }
-  updateProgress({status: 'Found pie', progress: 1}, 'findPie');
 
   return circle;
 }
@@ -74,7 +72,6 @@ function drawDetect(circle, src) {
 }
 
 function segmentPxls(circle, totalMask, src) {
-  updateProgress({status: 'Segmenting pie...', progress: 0}, 'segmentPie');
   // crop image - for display only
   var crop = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup cropped image
   src.copyTo(crop, totalMask);
@@ -108,7 +105,6 @@ function segmentPxls(circle, totalMask, src) {
       ]);
     }
     segPxls.push(segPix); // store segment pixels
-    updateProgress({status: 'Segmenting pie...', progress: seg/360}, 'segmentPie');
     // seg = seg + segStep;
     // if (seg <= 360) {
     //   setTimeout(getSeg, 0);

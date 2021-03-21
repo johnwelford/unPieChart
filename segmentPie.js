@@ -1,10 +1,8 @@
 function findSegments(segPxls) {
-  updateProgress({status: 'Clustering segment colours...', progress: 0}, 'segmentPie');
   var segValue = [];
   segPxls.forEach( (segment, i) => {
     let means = kmeans(segment, 5, null, 8, 10);
     segValue.push(means.centroids.reduce((prev, current) => (prev.points.length > current.points.length) ? prev : current)); // keep centroid with the most pixels
-    updateProgress({status: 'Clustering segment colours...', progress: i/(360/segStep)}, 'segmentPie');
   })
   if (debug) console.log('segValue', segValue);
 
@@ -12,7 +10,7 @@ function findSegments(segPxls) {
   const colDifThresh = 7;
   let values = [];
   let thisVal = {startAng: 0, endAng: segStep, colour: d3.rgb(segValue[0][0],segValue[0][1],segValue[0][2]), segColours: [d3.rgb(segValue[0][0],segValue[0][1],segValue[0][2])]};
-  updateProgress({status: 'Group segment colours...', progress: 0}, 'segmentPie');
+
   for (let i = 1; i < segValue.length; i++) {
     if (LABdistance(segValue[i-1],segValue[i]) > colDifThresh) { // segment is a new value
       values.push(thisVal); // record last value
@@ -21,7 +19,6 @@ function findSegments(segPxls) {
       thisVal.endAng = thisVal.endAng + segStep; // increment value end point
       thisVal.segColours.push(d3.rgb(segValue[i][0],segValue[i][1],segValue[i][2])); // add in the colour of this segment
     }
-    updateProgress({status: 'Group segment colours...', progress: i/segValue.length}, 'segmentPie');
   }
   // wrap around from end to start?
   if (LABdistance(segValue[0],segValue[segValue.length-1]) > colDifThresh) { // start is different from end
@@ -32,7 +29,6 @@ function findSegments(segPxls) {
   }
   // calculate percentages
   values.map( d => {d.fraction = d.segColours.length*segStep/360; return d;});
-  updateProgress({status: values.length+' segments found', progress: 1}, 'segmentPie');
 
   return values;
 }
