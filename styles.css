@@ -57,7 +57,7 @@ h2 {
 }
 
 #chart {
-  display: block;
+  display: flex;
   width: 100%;
   position: fixed;
 }
@@ -80,6 +80,11 @@ h2 {
   -ms-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
   visibility: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  align-items: center;
+  display: flex;
 }
 
 .pieImage.show {
@@ -87,6 +92,17 @@ h2 {
   -webkit-animation-name: show;
   -ms-animation-name: show;
   animation-name: show;
+}
+
+.pieImage svg {
+  margin: 0 auto;
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.image {
+  visibility: hidden;
 }
 
 blockquote {
@@ -121,10 +137,7 @@ blockquote {
   display: flex;
   overflow: hidden;
 }
-.fill img {
-  max-width: 100%;
-  max-height: 100%;
-}
+
 #dropZone {
   width: 100%;
   height: 100%;
@@ -174,8 +187,6 @@ blockquote {
 }
 #dropZone > * {
   float: left;
-  position: absolute;
-  display: block;
   position: absolute;
 }
 

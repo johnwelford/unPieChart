@@ -25,7 +25,8 @@
       <div class='author'><a href="https://codahale.com/about/">Coda Hale</a></div>
       <p>Drag or paste a pie chart image here to convert it to a more useful set of data.</p>
     </div>
-    <img id='image' class='pieImage'>
+    <img id='image' class='image'>
+    <img id='orig' class='pieImage'>
     <canvas id='greyscale' class='pieImage'></canvas>
     <canvas id='blur' class='pieImage'></canvas>
     <canvas id='edges' class='pieImage'></canvas>
@@ -51,8 +52,7 @@ To do:
 <ul>
   <li>Order table</li>
   <li>Fix legend extraction</li>
-  <li>Fix small images</li>
-  <li>Fix portrait images</li>
+  <li>Clear select box on new chart</li>
   <li>Fix unroll of pie</li>
   <li>Transition unrolled pie off image</li>
   <li>Directly label unrolled pie</li>
@@ -63,6 +63,7 @@ To do:
   <li>Vertical stacked bar</li>
   <li>Unstacked bar</li>
   <li>Investigate 3D charts</li>
+  <li>Add parameter tuning</li>
 </ul>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>

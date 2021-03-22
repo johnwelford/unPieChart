@@ -65,13 +65,14 @@ function getImage(items, area) {
 
       // load image
       updateProgress('Loading image...');
-      image.src = fr.result;
+      image.src = fr.result; // add to hidden actual size image
+      document.getElementById('orig').src = fr.result; // add to visible resized image
       await new Promise((resolve) => { image.onload = resolve; });
       intro.style.visibility = "hidden";
       let src;
       await breakable(() => { src = loadImage(); });
       updateProgress('Image loaded',true);
-      setSelect('processingDisplay','image','Original');
+      setSelect('processingDisplay','orig','Original');
 
       // find pie chart
       let circle;
