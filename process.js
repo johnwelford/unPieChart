@@ -62,6 +62,8 @@ function getImage(items, area) {
     view.value = value;
     var fr = new FileReader();
     fr.onload = async function process() {
+      // clear selectId
+      document.getElementById('processingDisplay').length = 0;
 
       // load image
       updateProgress('Loading image...');
@@ -73,6 +75,10 @@ function getImage(items, area) {
       await breakable(() => { src = loadImage(); });
       updateProgress('Image loaded',true);
       setSelect('processingDisplay','orig','Original');
+
+      if (src.rows*src.cols>500000 && (confirm('This is a pretty big image so it might take a few minutes and a bit of processing power. Do you want to continue?')==false)) {
+        return;
+      }
 
       // find pie chart
       let circle;
