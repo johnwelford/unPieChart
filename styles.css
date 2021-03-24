@@ -157,7 +157,7 @@ blockquote {
   --bg: hsla(0, 53%, 49%, 50%);
 }
 #dropZone:focus #notification {
-  content: "Paste a pie chart image";
+  content: 'Paste a pie chart image';
 }
 #dropZone #notification {
   white-space: pre-wrap;

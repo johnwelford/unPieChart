@@ -28,7 +28,7 @@ function buildHtmlTable(arr) {
 
 async function extractText(values, blobs) {
   const worker = Tesseract.createWorker()
-  let textImg = document.createElement("img");
+  let textImg = document.createElement('img');
   textImg.src = document.getElementById('legend').toDataURL();
   var result = await (async () => {
     await worker.load();

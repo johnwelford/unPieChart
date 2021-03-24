@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="utf-8">
+  <meta charset='utf-8'>
   <title>UnPieChart - undoing crappy pie charts</title>
-  <meta name="description" content="Reverse engineering of pie chart images.">
-  <meta name="author" content="John Welford">
-  <link rel="stylesheet" href="styles.css?v=1.0">
+  <meta name='description' content='Reverse engineering of pie chart images.'>
+  <meta name='author' content='John Welford'>
+  <link rel='stylesheet' href='styles.css?v=1.0'>
 </head>
 
 <body>
@@ -15,14 +15,14 @@
 <div id='dropZoneView' class='fill'>
   <div id='dropZone' tabindex=-1>
     <div id='intro'>
-      <p>Pie charts are everywhere, but really <a href="http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf">aren't a great way to deliver information</a>.</p>
+      <p>Pie charts are everywhere, but really <a href='http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf'>aren't a great way to deliver information</a>.</p>
       <div><blockquote>
         <p>Piecharts are the information visualization equivalent of a roofing hammer to the frontal lobe.
         They have no place in the world of grownups, and occupy the same semiotic space as short pants, a runny nose, and chocolate smeared on one’s face.
         They are as professional as a pair of assless chaps.
         Anyone who suggests their use should be instinctively slapped.</p>
       </blockquote></div>
-      <div class='author'><a href="https://codahale.com/about/">Coda Hale</a></div>
+      <div class='author'><a href='https://codahale.com/about/'>Coda Hale</a></div>
       <p>Drag or paste a pie chart image here to convert it to a more useful set of data.</p>
     </div>
     <img id='image' class='image'>
@@ -40,13 +40,50 @@
   </div>
 </div>
 
-<button id="start">Stacked Bar</button>
-<button id="reset">Pie</button>
+<button id='start'>Stacked Bar</button>
+<button id='reset'>Pie</button>
 
-<table id="resultTable"></table>
+<table id='resultTable'></table>
 
-<label for="processingDisplay">Show processing step:</label>
-<select name="processingDisplay" id="processingDisplay"></select>
+<label for='processingDisplay'>Show processing step:</label>
+<select name='processingDisplay' id='processingDisplay'></select>
+
+<div id='questions'>
+<h3>Questions?</h3>
+<details>
+  <summary>How do I use this?</summary>
+  <p>Either drag an image file from your machine over the box above, or copy an image (from the web or anywhere else) then click the box above and paste it.</p>
+</details>
+<details>
+  <summary>It hasn't worked properly!</summary>
+  <p>Firstly, that's not a question. Secondly, this is a surprsingly difficult task to automate, involving a lot of complex processing. Try adjusting some parameters and retrying if you're keen.</p>
+</details>
+<details>
+  <summary>How does it work?</summary>
+  <p></p>
+</details>
+<details>
+  <summary>Can I adjust the settings to make it work better?</summary>
+  <p></p>
+</details>
+<details>
+  <summary>Why is it slow?</summary>
+  <p>Everything is running in the browser, i.e. on your machine. This seemed easier that setting up a server, and it also means that it's your fault if it's slow.</p>
+</details>
+<details>
+  <summary>Who made this?</summary>
+  <p></p>
+</details>
+<details>
+  <summary>Why did you make this?</summary>
+  <p>For fun. To play with image processing. To play with data visualisation. To make your life just a little bit better.</p>
+</details>
+<details>
+  <summary>Did it take a long time?</summary>
+  <p>Yes. Yes, it did.</p>
+</details>
+</div>
+
 <br><br>
 To do:
 <ul>
@@ -57,7 +94,7 @@ To do:
   <li>Directly label unrolled pie</li>
   <li>Host on github.io</li>
   <li>Make work on mobile</li>
-  <li>Add folded FAQs</li>
+  <li>Style FAQs</li>
   <li>Vertical stacked bar</li>
   <li>Unstacked bar</li>
   <li>Investigate 3D charts</li>
@@ -65,14 +102,15 @@ To do:
   <li>Try angle plus colour clustering (no segmentation) method</li>
   <li>Find directly labelled segments</li>
   <li>Try line detection method</li>
+  <li>Add colour improvement option</li>
 </ul>
-<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src='https://d3js.org/d3.v5.min.js'></script>
 <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
-<script async src="opencv.js" onload="onOpenCvReady();"></script>
-<script src="process.js"></script>
-<script src="imageProcess.js"></script>
-<script src="segmentPie.js"></script>
-<script src="extractText.js"></script>
-<script src="newChart.js"></script>
+<script async src='opencv.js' onload='onOpenCvReady();'></script>
+<script src='process.js'></script>
+<script src='imageProcess.js'></script>
+<script src='segmentPie.js'></script>
+<script src='extractText.js'></script>
+<script src='newChart.js'></script>
 </body>
 </html>

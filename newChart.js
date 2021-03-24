@@ -40,11 +40,11 @@ function drawPie(pie, original, circle) {
     }
   }
 
-  chart.innerHTML = ''; // remove any previous svg 
+  chart.innerHTML = ''; // remove any previous svg
   svg = d3.select(chart)
-    .append("svg")
-      .attr("viewBox", '0 0 '+original.cols+' '+original.rows)
-      .attr("preserveAspectRatio", 'xMinYMin');
+    .append('svg')
+      .attr('viewBox', '0 0 '+original.cols+' '+original.rows)
+      .attr('preserveAspectRatio', 'xMinYMin');
 
   const g = svg.append('g')
   	.attr('transform', 'translate('+circle[0].x+','+circle[0].y+')');
@@ -56,14 +56,14 @@ function drawPie(pie, original, circle) {
   	.attr('d', d => arcTween(startAng, 0, 0, 0)(d)(0))
   	.attr('fill', d => makeColour(d.data.colour));
 
-  d3.select("#start").on("click", function() {
+  d3.select('#start').on('click', function() {
   	arc.transition().duration(1500)
-      .attrTween("d", arcTween(startAng, endAng, 0, radius-barHeight));
+      .attrTween('d', arcTween(startAng, endAng, 0, radius-barHeight));
     g.transition().duration(1500)
       .attr('transform', `translate(${circum}, ${radius})`);
   });
 
-  d3.select("#reset").on("click", function() {
+  d3.select('#reset').on('click', function() {
   	arc.transition().duration(1500)
   	  .attrTween('d', arcTween(endAng, startAng, radius-barHeight, 0));
     g.transition().duration(1500)

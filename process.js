@@ -31,7 +31,7 @@ function breakable(calculate){ // allow a breakable calculation using requestAni
 function setSelect(selectId, selection, text) { // add an option to a selection, select it, trigger the change event
   var select = document.getElementById(selectId);
   select.add(new Option(text, selection, false, true));
-  select.dispatchEvent(new Event("change"));
+  select.dispatchEvent(new Event('change'));
 };
 
 function dropZone() { // adapted from https://observablehq.com/@j-f1/drop-zone
@@ -44,9 +44,9 @@ function dropZone() { // adapted from https://observablehq.com/@j-f1/drop-zone
 }
 
 
-document.getElementById('processingDisplay').addEventListener("change", (event) => { // determine what processing image is shown
+document.getElementById('processingDisplay').addEventListener('change', (event) => { // determine what processing image is shown
   Array.from(document.querySelectorAll('.pieImage.show')).forEach((el) => el.classList.remove('show')); // hide everything
-  document.getElementById(event.target.value).classList.add("show"); // show the new thing
+  document.getElementById(event.target.value).classList.add('show'); // show the new thing
 });
 
 function getImage(items, area) {
@@ -70,7 +70,7 @@ function getImage(items, area) {
       image.src = fr.result; // add to hidden actual size image
       document.getElementById('orig').src = fr.result; // add to visible resized image
       await new Promise((resolve) => { image.onload = resolve; });
-      intro.style.visibility = "hidden";
+      intro.style.visibility = 'hidden';
       let src;
       await breakable(() => { src = loadImage(); });
       updateProgress('Image loaded',true);
