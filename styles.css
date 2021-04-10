@@ -76,7 +76,7 @@ details summary > * {
   display: inline;
 }
 details {
-  color: #383838;
+  color: #595959;
   margin-bottom: 10px;
 }
 details p {
@@ -103,10 +103,10 @@ details p {
   -webkit-animation-name: hide;
   -ms-animation-name: hide;
   animation-name: hide;
-  -moz-animation-duration: 0s;
-  -webkit-animation-duration: 0s;
-  -ms-animation-duration: 0s;
-  animation-duration: 0s;
+  -moz-animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  -ms-animation-duration: 2s;
+  animation-duration: 2s;
   -moz-animation-timing-function: linear;
   -webkit-animation-timing-function: linear;
   -ms-animation-timing-function: linear;
