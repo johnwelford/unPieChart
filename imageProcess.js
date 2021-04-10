@@ -83,9 +83,6 @@ function segmentPxls(circle, totalMask, src) {
   var segCropCombine = new cv.Mat(src.rows, src.cols, cv.CV_8U); // setup segment cropped image
   var segPxls = []; // store details for each segment
   for (let seg = segStep; seg <= 360; seg = seg + segStep) {
-  // let seg = segStep;
-  // (function getSeg() {
-  //   console.log(seg)
     circle.forEach( d => {
         cv.ellipse(segMask, {x: d.x, y: d.y}, {width: d.radius, height: d.radius}, 0, 0, seg, [255, 255, 255, 255], -1, 8, 0); // draw segment mask
     } )
@@ -105,11 +102,7 @@ function segmentPxls(circle, totalMask, src) {
       ]);
     }
     segPxls.push(segPix); // store segment pixels
-    // seg = seg + segStep;
-    // if (seg <= 360) {
-    //   setTimeout(getSeg, 0);
-    }
-  // })();
+  }
   return segPxls;
 }
 

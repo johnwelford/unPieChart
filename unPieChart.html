@@ -45,56 +45,54 @@
 
 <table id='resultTable'></table>
 
-<label for='processingDisplay'>Show processing step:</label>
-<select name='processingDisplay' id='processingDisplay'></select>
-
 <div id='questions'>
-<h3>Questions?</h3>
-<details>
-  <summary>How do I use this?</summary>
-  <p>Either drag an image file from your machine over the box above, or copy an image (from the web or anywhere else) then click the box above and paste it.</p>
-</details>
-<details>
-  <summary>It hasn't worked properly!</summary>
-  <p>Firstly, that's not a question. Secondly, this is a surprsingly difficult task to automate, involving a lot of complex processing. Try adjusting some parameters and retrying if you're keen.</p>
-</details>
-<details>
-  <summary>How does it work?</summary>
-  <p></p>
-</details>
-<details>
-  <summary>Can I adjust the settings to make it work better?</summary>
-  <p></p>
-</details>
-<details>
-  <summary>Why is it slow?</summary>
-  <p>Everything is running in the browser, i.e. on your machine. This seemed easier that setting up a server, and it also means that it's your fault if it's slow.</p>
-</details>
-<details>
-  <summary>Who made this?</summary>
-  <p></p>
-</details>
-<details>
-  <summary>Why did you make this?</summary>
-  <p>For fun. To play with image processing. To play with data visualisation. To make your life just a little bit better.</p>
-</details>
-<details>
-  <summary>Did it take a long time?</summary>
-  <p>Yes. Yes, it did.</p>
-</details>
+  <h3>Questions?</h3>
+  <details>
+    <summary><h4>How do I use this?</h4></summary>
+    <p>Either drag an image file from your machine over the box above, or copy an image (from the web or anywhere else) then click the box above and paste it.</p>
+  </details>
+  <details>
+    <summary><h4>It hasn't worked properly!</h4></summary>
+    <p>Firstly, that's not a question. Secondly, this is a surprsingly difficult task to automate, involving a lot of complex processing. Try adjusting some parameters and retrying if you're keen.</p>
+  </details>
+  <details>
+    <summary><h4>How does it work?</h4></summary>
+    <p>
+      <label for='processingDisplay'>Take a look through the processing steps:</label>
+      <select name='processingDisplay' id='processingDisplay'></select>
+    </p>
+  </details>
+  <details>
+    <summary><h4>Can I adjust the settings to make it work better?</h4></summary>
+    <p>To be added...</p>
+  </details>
+  <details>
+    <summary><h4>Why is it slow?</h4></summary>
+    <p>Everything is running in the browser, i.e. on your machine. This seemed easier that setting up a server, and it also means that it's your fault if it's slow.</p>
+  </details>
+  <details>
+    <summary><h4>Who made this?</h4></summary>
+    <p><a href='maito:john@extuitive.co.uk'>john@extuitive.co.uk</a></p>
+  </details>
+  <details>
+    <summary><h4>Why did you make this?</h4></summary>
+    <p>For fun. To play with image processing. To play with data visualisation. To make your life just a little bit better. To make data graphics just a little bit less shit.</p>
+  </details>
+  <details>
+    <summary><h4>Did it take a long time?</h4></summary>
+    <p>Yes. Yes, it did.</p>
+  </details>
 </div>
 
 <br><br>
 To do:
 <ul>
-  <li>Order table</li>
   <li>Fix legend extraction</li>
   <li>Fix unroll of pie</li>
   <li>Transition unrolled pie off image</li>
   <li>Directly label unrolled pie</li>
   <li>Host on github.io</li>
   <li>Make work on mobile</li>
-  <li>Style FAQs</li>
   <li>Vertical stacked bar</li>
   <li>Unstacked bar</li>
   <li>Investigate 3D charts</li>
@@ -103,6 +101,8 @@ To do:
   <li>Find directly labelled segments</li>
   <li>Try line detection method</li>
   <li>Add colour improvement option</li>
+  <li>Add image save option</li>
+  <li>Add table save option</li>
 </ul>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>

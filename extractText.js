@@ -1,6 +1,7 @@
 // Builds the HTML Table
 function buildHtmlTable(arr) {
   var table = document.getElementById('resultTable');
+  var roundArrFractionSort = largestRemainderRound(arr.map(a => a.fraction*100)).sort((a, b) => b - a);
 
   // remove old rows
   while (table.hasChildNodes()) {
@@ -8,7 +9,7 @@ function buildHtmlTable(arr) {
   }
 
   // add new rows
-  arr.forEach((row, i) => {
+  arr.sort((a, b) => b.fraction - a.fraction).forEach((row, i) => {
     var tr = document.createElement('tr');
     var td = document.createElement('td');
     var div = document.createElement('div');
@@ -20,7 +21,7 @@ function buildHtmlTable(arr) {
     td.appendChild(document.createTextNode(row.name || ''));
     tr.appendChild(td);
     var td = document.createElement('td');
-    td.appendChild(document.createTextNode((row.fraction*100).toFixed(0)+'%' || ''));
+    td.appendChild(document.createTextNode(roundArrFractionSort[i]+'%' || ''));
     tr.appendChild(td);
     table.appendChild(tr);
   });
@@ -52,4 +53,19 @@ function findLegendText(location, allText) { // function to match text found in 
                 );
   let lineText = text.length>0 ? text[0].line.text.slice(text[0].line.text.indexOf(text[0].text)) : ''; // return line text after the word
   return lineText;
+}
+
+function largestRemainderRound(numbers) { // round whilst still achieving a desired total (https://gist.github.com/scwood/e58380174bd5a94174c9f08ac921994f)
+  const desiredTotal = Math.round(numbers.reduce((a, b) => a + b, 0));
+  var result = numbers.map((number, index) => {
+    return {
+      floor: Math.floor(number),
+      remainder: number - Math.floor(number),
+      index: index,
+    };
+  }).sort((a, b) => b.remainder - a.remainder);
+  var lowerSum = result.reduce((sum, current) => sum + current.floor, 0);
+  var delta = desiredTotal - lowerSum;
+  for (var i = 0; i < delta; i++) result[i].floor++;
+  return result.sort((a, b) => a.index - b.index).map((result) => result.floor);
 }
