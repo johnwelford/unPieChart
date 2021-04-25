@@ -26,6 +26,7 @@ function findSegments(segPxls) {
   } else { // start continues from end, so merge
     values[0].startAng = thisVal.startAng;
     values[0].segColours = thisVal.segColours.concat(values[0].segColours);
+    values.push(values.shift()); // rotate first to last in array
   }
   // calculate percentages
   values.map( d => {d.fraction = d.segColours.length*segStep/360; return d;});

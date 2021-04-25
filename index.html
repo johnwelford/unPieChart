@@ -13,7 +13,7 @@
 <h2>Undoing crappy pie charts</h2>
 
 <div id='dropZoneView' class='fill'>
-  <div id='dropZone' tabindex=-1>
+  <div id='dropZone' tabindex=-1 contenteditable="true">
     <div id='intro'>
       <p>Pie charts are everywhere, but really <a href='http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf'>aren't a great way to deliver information</a>.</p>
       <div><blockquote>
@@ -24,6 +24,13 @@
       </blockquote></div>
       <div class='author'><a href='https://codahale.com/about/'>Coda Hale</a></div>
       <p>Drag or paste a pie chart image here to convert it to a more useful set of data.</p>
+      <!-- <label for="imgURL">To convert a pie chart to a more useful set of data drag or paste a pie chart image here, or paste the URL of a pie image below.</label>
+      <input id="imgURL" name="imgURL" type="url"
+              placeholder="http://www.examplePieChart.com/image.png"
+              size="40"
+              pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)(.jpg|.jpeg|.png|.gif)*"
+              title="The URL must a .jpg, .png, or .gif image">
+      <span class="validity"></span> -->
     </div>
     <img id='image' class='image'>
     <img id='orig' class='pieImage'>
@@ -37,6 +44,7 @@
     <canvas id='legend' class='pieImage'></canvas>
     <div id='chart' class='pieImage'></div>
     <div id ='notification'><span class='notifyText'>test</span></div>
+    <div id='dummyPaste'></div>
   </div>
 </div>
 
@@ -91,8 +99,7 @@ To do:
   <li>Fix unroll of pie</li>
   <li>Transition unrolled pie off image</li>
   <li>Directly label unrolled pie</li>
-  <li>Host on github.io</li>
-  <li>Make work on mobile</li>
+  <li>Make work on mobile - add url option? fix sizing?</li>
   <li>Vertical stacked bar</li>
   <li>Unstacked bar</li>
   <li>Investigate 3D charts</li>
